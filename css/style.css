@@ -2,15 +2,14 @@
   margin: 0;
   padding: 0;
 }
-
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #00040b;
   color: #333;
 }
 
 header {
-  background-color: #010e4e;
+  background-color: #00040b;
   color: white;
   padding: 1rem 1rem;
 }
@@ -19,42 +18,30 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
+  line-height: 1.2;
+
 }
 
 .nav-bar h1 {
-  font-size: 25px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
+  font-size: 20px;
 }
 
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
   padding: 0.3rem 0.6rem;
+  transition: all 0.3s ease;
 }
 
 .nav-links a:hover {
   text-decoration: underline;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 4px;
 }
 
 .hero {
   position: relative;
   height: 275px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.hero a {
-  color: rgba(255, 255, 255, 0.716);
-  
 }
 
 .hero-image {
@@ -65,36 +52,42 @@ header {
   filter: brightness(40%);
 }
 
-.hero-text {
-  color: white;
-  text-shadow: 2px 2px 4px #000;
-  padding: 2rem;
-  position: absolute;
+.hero-overlay {
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
 }
 
-h2 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+.hero-text {
+  color: white;
+  max-width: 800px;
+  text-align: center;
+  padding: 1rem;
+}
+.hero-text a {
+  color: rgb(162, 162, 162);
 }
 
 .Tablas_Datos {
   display: flex;
   flex-wrap: wrap;
-  gap: 100px;
+  gap: 50px;
   justify-content: center;
   margin: 20px auto;
 }
 
-.zona {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 350px;
+.escudo {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.tabla {
+  max-width: 250px;
   width: 100%;
 }
 
@@ -102,34 +95,50 @@ h2 {
   font-weight: bold;
   font-size: 1em;
   margin-bottom: 8px;
-  color: #4a69bd;
   text-align: center;
 }
 
-/* Estilo para tablas */
+/* colores por zona */
+.zona-campeonato .Zonas {
+  border-top: 4px solid gold;
+}
+
+.zona-ascenso .Zonas {
+  border-top: 4px solid green;
+}
+
+.zona-c .Zonas {
+  border-top: 4px solid blue;
+}
+
+.zona-d .Zonas {
+  border-top: 4px solid red;
+}
+
 .Zonas {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-size: 0.95em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   border-radius: 6px;
   overflow: hidden;
-  font-family: Arial, sans-serif;
-  background-color: #fff;
-  font-size: 0.9em;
 }
 
 .Zonas th {
   background-color: #4a69bd;
   color: white;
-  text-align: center;
-  padding: 8px;
+  padding: 10px;
 }
 
 .Zonas td {
-  text-align: center;
-  padding: 6px;
+  padding: 8px;
   border-top: 1px solid #ddd;
+}
+
+.Zonas tr:hover td {
+  background-color: #e8f0fe;
 }
 
 .equipo1 td {
@@ -137,71 +146,36 @@ h2 {
 }
 
 .equipo2 td {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
-.Zonas tr:hover td {
-  background-color: #e8f0fe;
+main {
+  flex: 1;
+}
+
+footer {
+  background-color: #0057ff;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+footer a {
+  color: #d0d0ff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-/* Media queries para dispositivos móviles */
+/* Responsive */
 @media (max-width: 768px) {
-  .nav-bar {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
+  .Tablas_Datos {
+    gap: 20px;
   }
-  
-  .nav-links {
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1rem;
-    width: 100%;
-  }
-  
-  .nav-links a {
-    padding: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-  }
-  
-  .hero {
-    height: 200px;
-  }
-  
-  .hero-text h2 {
-    font-size: 1.5rem;
-  }
-  
-  .hero-text p {
-    font-size: 0.9rem;
-  }
-}
-
-
-/* Mejorar el viewport para móviles */
-@media (max-width: 480px) {
-  .hero {
-    height: 150px;
-  }
-  
-  .hero-text {
-    padding: 1rem;
-  }
-  
-  .hero-text h2 {
-    font-size: 1.2rem;
+  .tabla {
+    max-width: 90%;
   }
 }
