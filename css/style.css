@@ -2,10 +2,16 @@
   margin: 0;
   padding: 0;
 }
+
+
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #00040b;
   color: #333;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden; /* Evita scroll horizontal no deseado */
+
 }
 
 header {
@@ -18,25 +24,33 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  line-height: 1.2;
+  padding: 0;
+  background-color: #00040b;
+  position: sticky;
+  top: 0;
+}
 
+.nav-links {
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
 }
 
 .nav-bar h1 {
-  font-size: 20px;
+  font-size: px;
 }
 
 .nav-links a {
   color: white;
   text-decoration: none;
-  padding: 0.3rem 0.6rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 .nav-links a:hover {
-  text-decoration: underline;
-  background-color: rgba(255,255,255,0.1);
-  border-radius: 4px;
+  background-color: #1a3a8f;
 }
 
 .hero {
@@ -61,14 +75,12 @@ header {
   align-items: center;
 }
 
-.hero-text {
-  color: white;
+.hero-text h2 {
+  color: rgb(255, 255, 255);
+  font-size: 50px;
   max-width: 800px;
   text-align: center;
   padding: 1rem;
-}
-.hero-text a {
-  color: rgb(162, 162, 162);
 }
 
 .Tablas_Datos {
@@ -87,15 +99,28 @@ header {
 }
 
 .tabla {
-  max-width: 250px;
+  max-width: 280px;
   width: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease; 
+  margin-bottom: 20px;
+}
+
+.tabla:hover {
+  transform: translateY(-5px); 
 }
 
 .zona-titulo {
   font-weight: bold;
-  font-size: 1em;
-  margin-bottom: 8px;
+  font-size: 1.2em;
+  padding: 12px;
+  background: linear-gradient(to right, #03112f, #1a3a8f);
+  color: white;
   text-align: center;
+  border-radius: 10px 10px 0 0;
 }
 
 /* colores por zona */
@@ -127,7 +152,7 @@ header {
 }
 
 .Zonas th {
-  background-color: #4a69bd;
+  background-color: #03112f;
   color: white;
   padding: 10px;
 }
@@ -137,8 +162,13 @@ header {
   border-top: 1px solid #ddd;
 }
 
+.Zonas tr{
+  transition: background-color 0.3s ease;
+}
+
 .Zonas tr:hover td {
   background-color: #e8f0fe;
+  transform: scale(1.02); /* Efecto de zoom leve */
 }
 
 .equipo1 td {
@@ -151,14 +181,16 @@ header {
 
 main {
   flex: 1;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
 footer {
-  background-color: #0057ff;
+  background: linear-gradient(to right, #34495e, #2c3e50);    
   color: white;
   text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
+  padding: 15px 0;
+  font-size: 14px;
+  margin-top: auto; 
 }
 footer a {
   color: #d0d0ff;
@@ -169,13 +201,40 @@ footer a:hover {
   text-decoration: underline;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 93.3vh; 
+  max-width: 100%;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 /* Responsive */
 @media (max-width: 768px) {
-  .Tablas_Datos {
-    gap: 20px;
+  .nav-links {
+    display: none; /* Oculta los enlaces en móviles */
   }
-  .tabla {
-    max-width: 90%;
+
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: #03112f;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .hamburger {
+    display: block;
+    cursor: pointer;
+    color: white;
+    font-size: 1.5rem;
   }
 }
