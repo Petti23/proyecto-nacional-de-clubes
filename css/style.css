@@ -3,7 +3,6 @@
   padding: 0;
 }
 
-
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #00040b;
@@ -12,6 +11,12 @@ body {
   margin: 0;
   overflow-x: hidden; /* Evita scroll horizontal no deseado */
 
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
 }
 
 header {
@@ -31,17 +36,24 @@ header {
   z-index: 10;
 }
 
-.nav-links {
-  display: flex;
-  gap: 20px;
-  font-size: 18px;
-}
-
 .nav-bar h1 {
   font-size: 1.8rem;
   font-weight: bold;
   color: white;
   margin: 0;
+}
+
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
 }
 
 .nav-links a {
@@ -57,11 +69,9 @@ header {
   background-color: #1a3a8f;
 }
 
-.hamburger {
-  display: none;
-  font-size: 1.5rem;
-  color: white;
-  cursor: pointer;
+main {
+  flex: 1;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
 .hero {
@@ -107,13 +117,6 @@ header {
   margin: 20px auto;
 }
 
-.escudo {
-  vertical-align: middle;
-  margin-right: 4px;
-  width: 20px;
-  height: 20px;
-}
-
 .tabla {
   max-width: 300px;
   width: 100%;
@@ -129,18 +132,6 @@ header {
   transform: translateY(-5px); 
 }
 
-.zona-titulo {
-  font-weight: bold;
-  margin: 0; 
-  font-size: 1.2em;
-  padding: 12px;
-  background: linear-gradient(to right, #03112f, #011e75);
-  color: white;
-  text-align: center;
-  border-radius: 0;
-}
-
-/* colores por zona */
 .zona-campeonato  {
   border-top: 4px solid gold;
 }
@@ -157,6 +148,17 @@ header {
   border-top: 4px solid red;
 }
 
+.zona-titulo {
+  font-weight: bold;
+  margin: 0; 
+  font-size: 1.2em;
+  padding: 12px;
+  background: linear-gradient(to right, #03112f, #011e75);
+  color: white;
+  text-align: center;
+  border-radius: 0;
+}
+
 .Zonas {
   width: 100%;
   border-collapse: collapse;
@@ -168,6 +170,10 @@ header {
   overflow: hidden;
   text-align: center;
   vertical-align: middle;
+}
+
+.Zonas tr{
+  transition: background-color 0.3s ease;
 }
 
 .Zonas th {
@@ -201,10 +207,6 @@ header {
   width: 15%;
 }
 
-.Zonas tr{
-  transition: background-color 0.3s ease;
-}
-
 .equipo1 td {
   background-color: #ffffff;
 }
@@ -213,9 +215,11 @@ header {
   background-color: #fff;
 }
 
-main {
-  flex: 1;
-  animation: fadeIn 0.8s ease-in-out;
+.escudo {
+  vertical-align: middle;
+  margin-right: 4px;
+  width: 20px;
+  height: 20px;
 }
 
 footer {
@@ -226,6 +230,7 @@ footer {
   font-size: 14px;
   margin-top: auto; 
 }
+
 footer a {
   color: #d0d0ff;
   text-decoration: none;
@@ -233,12 +238,6 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; 
 }
 
 @keyframes fadeIn {
@@ -301,6 +300,7 @@ footer a:hover {
     margin: 10px auto;
   }
 }
+
 @media (min-width: 1200px) {
   .nav-bar h1 {
     font-size: 2rem;
