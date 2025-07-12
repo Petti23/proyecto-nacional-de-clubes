@@ -102,20 +102,20 @@ header {
 .Tablas_Datos {
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 80px;
   justify-content: center;
   margin: 20px auto;
 }
 
 .escudo {
-  width: 24px;
-  height: 24px;
   vertical-align: middle;
-  margin-right: 5px;
+  margin-right: 4px;
+  width: 20px;
+  height: 20px;
 }
 
 .tabla {
-  max-width: 280px;
+  max-width: 300px;
   width: 100%;
   background: #03112f;
   border-radius: 10px;
@@ -141,38 +141,41 @@ header {
 }
 
 /* colores por zona */
-.zona-campeonato .Zonas {
+.zona-campeonato  {
   border-top: 4px solid gold;
 }
 
-.zona-ascenso .Zonas {
+.zona-ascenso  {
   border-top: 4px solid green;
 }
 
-.zona-c .Zonas {
+.zona-c  {
   border-top: 4px solid blue;
 }
 
-.zona-d .Zonas {
+.zona-d  {
   border-top: 4px solid red;
 }
 
 .Zonas {
   width: 100%;
   border-collapse: collapse;
-  border: none;
   border-spacing: 0;
   background-color: #03112f;
   font-size: 0.95em;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   border-radius: 6px;
   overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .Zonas th {
   background-color: #03112f;
   color: white;
   padding: 10px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .Zonas td {
@@ -180,13 +183,26 @@ header {
   border-top: 1px solid #ddd;
 }
 
-.Zonas tr{
-  transition: background-color 0.3s ease;
+.Zonas td:first-child,
+.Zonas th:first-child {
+  text-align: left;
+  width: 40%; /* más ancho para nombre del equipo */
+  padding-left: 8px;
 }
 
-.Zonas tr:hover td {
-  background-color: #e8f0fe;
-  transform: scale(1.02); /* Efecto de zoom leve */
+.Zonas th:nth-child(2),
+.Zonas td:nth-child(2),
+.Zonas th:nth-child(3),
+.Zonas td:nth-child(3),
+.Zonas th:nth-child(4),
+.Zonas td:nth-child(4),
+.Zonas th:nth-child(5),
+.Zonas td:nth-child(5) {
+  width: 15%;
+}
+
+.Zonas tr{
+  transition: background-color 0.3s ease;
 }
 
 .equipo1 td {
