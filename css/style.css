@@ -101,7 +101,7 @@ header {
 .tabla {
   max-width: 280px;
   width: 100%;
-  background: white;
+  background: #03112f;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -115,12 +115,13 @@ header {
 
 .zona-titulo {
   font-weight: bold;
+  margin: 0; 
   font-size: 1.2em;
   padding: 12px;
-  background: linear-gradient(to right, #03112f, #1a3a8f);
+  background: linear-gradient(to right, #03112f, #011e75);
   color: white;
   text-align: center;
-  border-radius: 10px 10px 0 0;
+  border-radius: 0;
 }
 
 /* colores por zona */
@@ -142,9 +143,10 @@ header {
 
 .Zonas {
   width: 100%;
-  border-collapse: separate;
+  border-collapse: collapse;
+  border: none;
   border-spacing: 0;
-  background-color: #fff;
+  background-color: #03112f;
   font-size: 0.95em;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   border-radius: 6px;
@@ -172,7 +174,7 @@ header {
 }
 
 .equipo1 td {
-  background-color: #f9f9f9;
+  background-color: #ffffff;
 }
 
 .equipo2 td {
@@ -204,7 +206,7 @@ footer a:hover {
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 93.3vh; 
+  min-height: 100vh; 
   max-width: 100%;
 }
 
