@@ -82,7 +82,79 @@ h2 {
   margin-bottom: 0.5rem;
 }
 
-/* Mantén todo lo que ya tienes y agrega estos cambios */
+.Tablas_Datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 100px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.zona {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 350px;
+  width: 100%;
+}
+
+.zona-titulo {
+  font-weight: bold;
+  font-size: 1em;
+  margin-bottom: 8px;
+  color: #4a69bd;
+  text-align: center;
+}
+
+/* Estilo para tablas */
+.Zonas {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  font-size: 0.9em;
+}
+
+.Zonas th {
+  background-color: #4a69bd;
+  color: white;
+  text-align: center;
+  padding: 8px;
+}
+
+.Zonas td {
+  text-align: center;
+  padding: 6px;
+  border-top: 1px solid #ddd;
+}
+
+.equipo1 td {
+  background-color: #f9f9f9;
+}
+
+.equipo2 td {
+  background-color: #ffffff;
+}
+
+.Zonas tr:hover td {
+  background-color: #e8f0fe;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Media queries para dispositivos móviles */
 @media (max-width: 768px) {
