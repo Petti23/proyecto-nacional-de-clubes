@@ -113,7 +113,7 @@ main {
   flex-wrap: wrap;
   gap: 40px;  /* antes 80px */
   justify-content: center;
-  margin: 10px auto 0 auto; /* menos margen inferior */
+  margin: 45px auto 0 auto; /* menos margen inferior */
 }
 
 

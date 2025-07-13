@@ -1,0 +1,192 @@
+//crear tablas
+
+CREATE TABLE EQUIPO (
+    codigo_equipo INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE JUGADOR (
+    dni_jugador CHAR(8) PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    codigo_equipo INT,
+    FOREIGN KEY (codigo_equipo) REFERENCES EQUIPO(codigo_equipo)
+);
+
+CREATE TABLE PARTIDO (
+    id_partido INT PRIMARY KEY AUTO_INCREMENT,
+    fecha DATE NOT NULL,
+    equipo_local INT,
+    equipo_visitante INT,
+    FOREIGN KEY (equipo_local) REFERENCES EQUIPO(codigo_equipo),
+    FOREIGN KEY (equipo_visitante) REFERENCES EQUIPO(codigo_equipo)
+);
+
+CREATE TABLE ESTADISTICAS_JUGADOR_PARTIDO (
+    id_estadistica INT PRIMARY KEY AUTO_INCREMENT,
+    id_partido INT,
+    dni_jugador CHAR(8),
+    h INT DEFAULT 0,
+    ab INT DEFAULT 0,
+    bb INT DEFAULT 0,
+    tb INT DEFAULT 0,
+    FOREIGN KEY (id_partido) REFERENCES PARTIDO(id_partido),
+    FOREIGN KEY (dni_jugador) REFERENCES JUGADOR(dni_jugador)
+);
+
+CREATE TABLE JUGADOR_ESTADISTICAS_AGREGADAS (
+    dni_jugador CHAR(8) PRIMARY KEY,
+    h INT DEFAULT 0,
+    ab INT DEFAULT 0,
+    bb INT DEFAULT 0,
+    tb INT DEFAULT 0,
+    avg DECIMAL(4,3) DEFAULT 0,
+    obp DECIMAL(4,3) DEFAULT 0,
+    slg DECIMAL(4,3) DEFAULT 0,
+    ops DECIMAL(4,3) DEFAULT 0,
+    FOREIGN KEY (dni_jugador) REFERENCES JUGADOR(dni_jugador)
+);
+
+CREATE TABLE EQUIPO_ESTADISTICAS_AGREGADAS (
+    codigo_equipo INT PRIMARY KEY,
+    h INT DEFAULT 0,
+    ab INT DEFAULT 0,
+    bb INT DEFAULT 0,
+    tb INT DEFAULT 0,
+    avg DECIMAL(4,3) DEFAULT 0,
+    obp DECIMAL(4,3) DEFAULT 0,
+    slg DECIMAL(4,3) DEFAULT 0,
+    ops DECIMAL(4,3) DEFAULT 0,
+    FOREIGN KEY (codigo_equipo) REFERENCES EQUIPO(codigo_equipo)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//actualizar datos de equipos y jugadores
+DELIMITER //
+
+CREATE PROCEDURE actualizar_estadisticas()
+BEGIN
+    -- Declaración de variables y manejador de errores
+    DECLARE exit handler for sqlexception
+    BEGIN
+        ROLLBACK;
+        INSERT INTO LOG_ESTADISTICAS (fecha, estado, mensaje_error)
+        VALUES (NOW(), 'Error', CONCAT('Error al actualizar estadísticas: ', SQLSTATE, ' - ', MESSAGE_TEXT));
+    END;
+    
+    -- Iniciar transacción
+    START TRANSACTION;
+    
+    -- Registrar inicio del proceso
+    INSERT INTO LOG_ESTADISTICAS (fecha, estado, mensaje_error)
+    VALUES (NOW(), 'Iniciado', 'Proceso de actualización iniciado');
+    
+    -- 1. Actualización de estadísticas de jugadores
+    DELETE FROM JUGADOR_ESTADISTICAS_AGREGADAS;
+
+    INSERT INTO JUGADOR_ESTADISTICAS_AGREGADAS (
+        dni_jugador, 
+        total_hits, 
+        total_turnos_al_bate, 
+        total_bases_por_bola, 
+        total_bases_alcanzadas, 
+        promedio_bateo, 
+        porcentaje_embase, 
+        porcentaje_slugging, 
+        ops
+    )
+    SELECT
+        ejp.dni_jugador,
+        SUM(ejp.h) AS total_hits,
+        SUM(ejp.ab) AS total_turnos_al_bate,
+        SUM(ejp.bb) AS total_bases_por_bola,
+        SUM(ejp.tb) AS total_bases_alcanzadas,
+        IF(SUM(ejp.ab) > 0, ROUND(SUM(ejp.h) / SUM(ejp.ab), 3), 0) AS promedio_bateo,
+        IF(SUM(ejp.ab + ejp.bb) > 0, 
+           ROUND((SUM(ejp.h) + SUM(ejp.bb)) / (SUM(ejp.ab) + SUM(ejp.bb)), 3), 
+           0) AS porcentaje_embase,
+        IF(SUM(ejp.ab) > 0, ROUND(SUM(ejp.tb) / SUM(ejp.ab), 3), 0) AS porcentaje_slugging,
+        IF(SUM(ejp.ab) > 0, 
+           ROUND(
+               ((SUM(ejp.h) + SUM(ejp.bb)) / (SUM(ejp.ab) + SUM(ejp.bb))) + 
+               (SUM(ejp.tb) / SUM(ejp.ab)), 
+           3), 
+           0) AS ops
+    FROM ESTADISTICAS_JUGADOR_PARTIDO ejp
+    WHERE ejp.ab >= 0
+    GROUP BY ejp.dni_jugador;
+
+    -- 2. Actualización de estadísticas de equipos
+    DELETE FROM EQUIPO_ESTADISTICAS_AGREGADAS;
+
+    INSERT INTO EQUIPO_ESTADISTICAS_AGREGADAS (
+        codigo_equipo, 
+        total_hits, 
+        total_turnos_al_bate, 
+        total_bases_por_bola, 
+        total_bases_alcanzadas, 
+        promedio_bateo, 
+        porcentaje_embase, 
+        porcentaje_slugging, 
+        ops
+    )
+    SELECT
+        j.codigo_equipo,
+        SUM(ejp.h) AS total_hits,
+        SUM(ejp.ab) AS total_turnos_al_bate,
+        SUM(ejp.bb) AS total_bases_por_bola,
+        SUM(ejp.tb) AS total_bases_alcanzadas,
+        IF(SUM(ejp.ab) > 0, ROUND(SUM(ejp.h) / SUM(ejp.ab), 3), 0) AS promedio_bateo,
+        IF(SUM(ejp.ab + ejp.bb) > 0, 
+           ROUND((SUM(ejp.h) + SUM(ejp.bb)) / (SUM(ejp.ab) + SUM(ejp.bb)), 3), 
+           0) AS porcentaje_embase,
+        IF(SUM(ejp.ab) > 0, ROUND(SUM(ejp.tb) / SUM(ejp.ab), 3), 0) AS porcentaje_slugging,
+        IF(SUM(ejp.ab) > 0, 
+           ROUND(
+               ((SUM(ejp.h) + SUM(ejp.bb)) / (SUM(ejp.ab) + SUM(ejp.bb))) + 
+               (SUM(ejp.tb) / SUM(ejp.ab)), 
+           3), 
+           0) AS ops
+    FROM ESTADISTICAS_JUGADOR_PARTIDO ejp
+    JOIN JUGADOR j ON ejp.dni_jugador = j.dni_jugador
+    WHERE ejp.ab >= 0
+    GROUP BY j.codigo_equipo;
+
+    -- Registrar finalización exitosa
+    INSERT INTO LOG_ESTADISTICAS (fecha, estado, mensaje_error)
+    VALUES (NOW(), 'Completado', 'Estadísticas actualizadas correctamente');
+    
+    -- Confirmar transacción
+    COMMIT;
+END //
+
+DELIMITER ;
+
+
+
+
+//para logs de estadísticas
+CREATE TABLE IF NOT EXISTS LOG_ESTADISTICAS (
+    id_log INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATETIME NOT NULL,
+    estado VARCHAR(20) NOT NULL, -- 'Iniciado', 'Completado', 'Error'
+    mensaje_error TEXT,
+    detalles TEXT
+);
+
+//para ver el historial de ejecuciones
+SELECT * FROM LOG_ESTADISTICAS ORDER BY fecha DESC;
