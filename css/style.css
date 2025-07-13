@@ -10,7 +10,6 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden; /* Evita scroll horizontal no deseado */
-
 }
 
 .container {
@@ -46,7 +45,7 @@ header {
 .hamburger {
   display: none;
   font-size: 1.5rem;
-  color: white;
+  color: rgb(255, 255, 255);
   cursor: pointer;
 }
 
@@ -70,7 +69,7 @@ header {
 }
 
 main {
-  flex: 1;
+  flex: 1 0 auto;
   animation: fadeIn 0.8s ease-in-out;
 }
 
@@ -112,10 +111,11 @@ main {
 .Tablas_Datos {
   display: flex;
   flex-wrap: wrap;
-  gap: 80px;
+  gap: 40px;  /* antes 80px */
   justify-content: center;
-  margin: 20px auto;
+  margin: 10px auto 0 auto; /* menos margen inferior */
 }
+
 
 .tabla {
   max-width: 300px;
@@ -125,7 +125,7 @@ main {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   transition: transform 0.3s ease; 
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .tabla:hover {
@@ -230,6 +230,67 @@ footer {
   font-size: 14px;
   margin-top: auto; 
 }
+
+.proximos-partidos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.proximos-partidos section {
+  max-width: 280px;
+  width: 100%;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  border-radius: 15px;
+  padding: 20px 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.proximos-partidos section:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.proximos-partidos h2 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.proximos-partidos ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.proximos-partidos li {
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  margin: 8px 0;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.proximos-partidos li:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+
+
+
+
 
 footer a {
   color: #d0d0ff;
